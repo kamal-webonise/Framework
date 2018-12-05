@@ -3,13 +3,13 @@
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default'] = array(
+$db = array(
   'dsn' => '',
   'hostname' => 'localhost',
   'username' => 'root',
   'password' => '',
   'database' => 'testframework',
-  'dbserver' => 'mysqli',
+  'dbserver' => 'mysql',
   'pconnect' => FALSE,
   'save_queries' => TRUE
 );
