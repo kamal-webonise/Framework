@@ -19,7 +19,7 @@ class UserController {
 	}
 	
 	public function showUsers($obj){
-		print_r($this->model->getUsers());
+		print_r($this->model->getUsers($obj));
 		print_r($obj);
 	}
 }
