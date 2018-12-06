@@ -10,7 +10,7 @@ class UserController {
 
 	public function index()
 	{
-	return "Index Method";
+	echo "Index Method";
 	}
 
 	public function login()
@@ -20,9 +20,7 @@ class UserController {
 	
 	public function showUsers($obj){
 		print_r($this->model->getUsers());
-		// print_r($obj);
+		print_r($obj);
 	}
-	
 }
-
 ?>
