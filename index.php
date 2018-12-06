@@ -1,16 +1,17 @@
 <?php
 session_start();
 
-// Note: put every require functions in autoload
-require_once('./config/database_config.php');
-require_once('./database/database_connection.php');
-$database = Database::getInstance($db);
+// Project root path constant
+define('ROOTPATH', dirname(__FILE__));
 
-require_once('./core/router.php');
+// Autoload methods
+require_once(ROOTPATH . '/core/bootstrap.php');
+
+/*$dbobject = DatabaseFactory::getDatabaseInstance($db['dbserver']);
+
+$res = $dbobject->query("select * from users");
+print_r($res);
+*/
 
 $router = new Router();
 $router->run();
-// echo "helo";
-
-  
-?>

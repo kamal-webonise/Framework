@@ -33,8 +33,8 @@ class Router {
 
     $reqController = $this->pathArray[1];
     $reqModel = $this->pathArray[1];
-    $controllerPath = '/var/www/html/Framework/app/controllers/'.$reqController.'_controller.php';
-    $modelPath = '/var/www/html/Framework/app/models/'.$reqModel.'_model.php';
+    $controllerPath = ROOTPATH . '/app/controllers/'.$reqController.'_controller.php';
+    $modelPath = ROOTPATH . '/app/models/'.$reqModel.'_model.php';
 
     if (file_exists($controllerPath))
     {
