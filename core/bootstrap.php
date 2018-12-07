@@ -1,6 +1,7 @@
 <?php
 
 // Gets database files 
+require_once(ROOTPATH . '/config/config.php');
 require_once(ROOTPATH . '/config/database_config.php');
 require_once(ROOTPATH . '/database/database_interface.php');
 require_once(ROOTPATH . '/database/database_factory.php');
