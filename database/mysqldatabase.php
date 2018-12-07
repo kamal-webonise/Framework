@@ -1,9 +1,13 @@
 <?php
+    require_once "../../config/database_config.php";
+    require_once "database_connection.php";
+    require_once "databaseinterface.php";
     class MysqlDatabase implements DatabaseInterface
     {
         private $pdo;
         function connect()
         {
+            global $db;
             $pdo=Database::getInstance($db);
         }
 
@@ -79,6 +83,13 @@
 
         public function error() {
             return $this->error;
+        }
+
+        public function disconnect()
+        {
+            if (isset($this->_mysqli)) {
+                $this->_mysqli->close();
+            }
         }
     }
 ?>
