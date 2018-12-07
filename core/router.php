@@ -54,18 +54,18 @@ class Router {
       }
 
       if ($method != '') {
-        if (method_exists($controllerObj, $method))
-          $controllerObj->$method($this->params);
-        else
-          die('No Method Found');
+        if (method_exists($controllerObj, $method)) {
+          if( sizeof($this->params) )
+            $controllerObj->$method($model,$this->params);
+          else
+            $controllerObj->$method($model);
+        }
+        else {
+          die('No such Method Found');
+        }
       }
       else {
-        // include_once '/var/www/html/Framework/app/controllers/index_controller.php';
-        // $method = self::DEFAULT_ACTION;
-        // $this->controller = self::DEFAULT_CONTROLLER;
-        // $controllerObj = new $this->controller();
-        // $controllerObj->$method();
-        echo "We will set a default path";
+        echo "No method metioned. We will set a default path";
       }
     }
     else {
