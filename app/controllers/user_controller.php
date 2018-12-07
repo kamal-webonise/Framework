@@ -1,6 +1,6 @@
 <?php
 
-class UserController {
+class UserController extends BaseController {
 	private $model;
 
 	function __construct( $tile )
@@ -10,17 +10,18 @@ class UserController {
 
 	public function index()
 	{
-	echo "Index Method";
+		echo "Index Method";
 	}
 
 	public function login()
 	{
-	echo "Login Method";
+		echo "Login Method";
 	}
 	
-	public function showUsers($obj){
-		print_r($this->model->getUsers($obj));
-		print_r($obj);
+	public function showUsers($modelName) {
+		echo "hey";
+		// $obj = new $modelName;
+		$this->model->getUsers();
 	}
 }
 ?>
