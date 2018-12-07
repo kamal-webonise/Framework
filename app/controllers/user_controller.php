@@ -1,12 +1,13 @@
 <?php
 
 class UserController extends Controller{
-	private $model;
+	private $model, $view;
 
 	function __construct( $tile )
 	{
 		$this->model = new $tile;
-		parent::__construct("user", "home"); // Note: Remove this line after actual controller is implemented
+		//parent::__construct("user", "home"); // Note: Remove this line after actual controller is implemented
+		$this->view = new View();
 	}
 
 	public function index()
@@ -24,8 +25,8 @@ class UserController extends Controller{
 		print_r($obj);
 	}
 
-	public function home($name) {
-		print_r($name);
+	public function home($name) { // $name in case of getting parameters from url
+		// print_r($name); 
 		$this->view->render('home/index');
 	}
 }

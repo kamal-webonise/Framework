@@ -10,8 +10,8 @@ class View{
     
         if(file_exists(ROOTPATH . '/app/views/' . $viewName . '.php')){
             include(ROOTPATH . '/app/views/' . $viewName . '.php');
-            //include(ROOTPATH . '/app/views/layouts/' .$this->layout. '.php');
-        } 
+            include(ROOTPATH . '/app/views/layouts/' .$this->layout. '.php');
+        }
         else{
             die('The View \"'.$viewName.'\" does not exist.');
         }

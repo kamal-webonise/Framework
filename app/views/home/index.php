@@ -1,10 +1,6 @@
-<h1>Working</h1>
-<?php $this->setSiteTitle('Home'); ?>
-
-<?php $this->start('head'); ?>
-
-<?php $this->end(); ?>
-
 <?php $this->start('body'); ?>
+
+    <h1>Working</h1>
+    <h1>Hello</h1>
 
 <?php $this->end(); ?> 
