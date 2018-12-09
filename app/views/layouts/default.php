@@ -1,10 +1,18 @@
 <html>
     <head>
         <title>
+            <?=
+                $this->siteTitle();
+            ?>
         </title>
+        <?=
+            $this->content('head');
+        ?>
     </head>
 
     <body>
-        <?php $this->content('body'); ?>
+        <?=
+            $this->content('body');
+        ?>
     </body>
 </html>

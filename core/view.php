@@ -30,7 +30,7 @@ class View{
     public function start($type) { 
         // $type will be head or body depending on user view
         $this->outputBuffer = $type;
-        ob_start(); // default php method to store buffer buffer, in this case <html> tags
+        ob_start(); // default php method to store buffer, in this case <html> tags
     }
 
     public function end() {

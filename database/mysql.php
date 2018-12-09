@@ -3,14 +3,13 @@
 class Mysql implements DatabaseInterface {
 
     private static $instance = null;
-    private $pdo;
+    private $pdo, $query, $error = false, $result, $count = 0, $lastInsertId = null;
     
     // connection fields
     private $databaseServer, $host, $databaseName, $user, $password;
     
     /*
-    Database connection having a Singleton Design Pattern.
-    Note: get all the fields from a config file
+        Database connection having a Singleton Design Pattern.
     */
     private function __construct($dbConfigArray) {
         
@@ -114,6 +113,22 @@ class Mysql implements DatabaseInterface {
 
     public function results() {
         return $this->result;
+    }
+
+    public function first() {
+        return (!empty($this->result)) ? $this->result[0] : [];
+    }
+
+    public function count() {
+        return $this->count;
+    }
+
+    public function lastInsertId() {
+        return $this->lastInsertId;
+    }
+
+    public function getColumns($table) {
+        return $this->query("SHOW COLUMNS FROM {$table}")->results();
     }
 
     public function error() {
