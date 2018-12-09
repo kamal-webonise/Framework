@@ -58,7 +58,7 @@ class Model {
         return $this->databaseConnection->query($sql, $bind);
     }
 
-    // part of active record pattern to save current insetance data
+    // part of active record pattern to save current instance data
     public function save() {
         $fields = [];
         foreach($this->columnName as $column) {
