@@ -6,10 +6,10 @@ $query_builder = TRUE;
 $db = array(
   'dsn' => '',
   'hostname' => 'localhost',
-  'username' => 'root',
-  'password' => '',
-  'database' => 'testframework',
-  'dbserver' => 'mysql',
+  'username' => 'postgres',
+  'password' => 'postgres',
+  'database' => 'shopping_cart',
+  'dbserver' => 'pgsql',
   'pconnect' => FALSE,
   'save_queries' => TRUE
 );

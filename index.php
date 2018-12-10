@@ -1,6 +1,7 @@
 <?php
-session_start();
-
+require_once __DIR__.'/config/middleware.php';
+$middleWare=new MiddleWare;
+    
 // Note: put every require functions in autoload
 require_once('./config/database_config.php');
 require_once('./database/database_connection.php');
@@ -54,6 +55,15 @@ else {
 		}
 		else {
 			print $ControllerObj->index();
+
+		if ( !empty( $_POST['csrf_token'] ) ) {
+ 
+    		if($middleWare->checkToken($_POST['csrf_token'], 'registration' ) ) {
+				echo "true";
+			}
+		}else{
+			echo "sdjnfdjf";
+		}
 		}
 	}
 	else
@@ -61,6 +71,9 @@ else {
 	header('HTTP/1.1 404 Not Found');
 	die('404 - The file - '.' - not found');
 	}
-}	
+}
+
+ 
+
 	
 ?>

@@ -10,7 +10,7 @@ class UserController {
 
 	public function index()
 	{
-	return "Index Method";
+		header('Location: assets/html/registration.php');
 	}
 
 	public function login()
