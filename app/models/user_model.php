@@ -1,20 +1,18 @@
 <?php
 
-class UserModel
+class UserModel extends Model
 {
 	private $pdo;
 
-	public function getUsers(){
-		$users = [
-		["name" => "Williams Isaac", "Phone Number" => "090982xxxxxx"],
-		["name" => "Oji Mike", "Phone Number"=> "080982xxxxxx"]
-		];
-		
-		global $db;
-		$pdo = DatabaseFactory::getDatabaseInstance($db['dbserver']);
-		$users = $pdo->query("select * from users");
-		
-		return json_encode($users);
+	public function __construct() {
+		parent::__construct('users');
+		$this->pdo = DatabaseFactory::getDatabaseInstance();
 	}
+	
+	public function setUser(){
+		$postedArray = ['username' => '', 'email' => '', 'password' => '', 'confirm' => ''];
+		$this->pdo->insert();
+	}
+
 }
 ?>

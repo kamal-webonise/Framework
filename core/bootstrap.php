@@ -9,8 +9,8 @@ function __autoload($className) {
 
     $className = convertToFileName($className);
     
-    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {        
-        require_once(ROOTPATH . '/database/database_interface.php');
+    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {  
+        require_once(ROOTPATH . '/database/database_interface.php');      
         require_once(ROOTPATH . '/database/database_factory.php');
         require_once(ROOTPATH . '/database/' . $className . '.php');
     }

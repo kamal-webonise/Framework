@@ -2,7 +2,8 @@
 class View{
 
     protected $head, $body, $siteTitle = SITE_TITLE, $outputBuffer, $layout = DEFAULT_LAYOUT;
-    
+    private $dataArray;
+
     public function __construct() {
     }
 
@@ -55,5 +56,13 @@ class View{
 
     public function setLayout($path){
         $this->layout = $path;
+    }
+
+    public function postedData($dataArray = []) {
+        $this->dataArray = $dataArray;
+    }
+
+    public function getPostedData() {
+        return $this->dataArray;
     }
 }

@@ -5,8 +5,7 @@ class Model {
     public $id;
 
     public function __construct($table) {
-        global $db;
-        $this->databaseConnection = DatabaseFactory::getDatabaseInstance($db['dbserver']);
+        $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
         $this->table = $table;
         $this->setTableColumns();
 
@@ -17,13 +16,14 @@ class Model {
     protected function setTableColumns() {
         $columns = $this->getColumns();
         foreach($columns as $column) {
+            $columnName = $column->Field;
             $this->columnName[] = $column->Field;
-            $this->{columnName} = null;
+            //$this->{columnName} = null;
         }
     }
 
     public function getColumns() {
-        return $this->databaseConnection->get_columns($this->table);
+        return $this->databaseConnection->getColumns($this->table);
     }
 
     public function insert($fields) {

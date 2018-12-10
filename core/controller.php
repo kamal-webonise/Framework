@@ -11,4 +11,10 @@ class Controller extends Application {
         $this->action = $action;
         $this->view = new View();
     }
+
+    protected function loadModel($model) {
+        if(class_exists($model)) {
+            $this->$model = new $model($model);
+        }
+    }
 }
