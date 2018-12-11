@@ -1,28 +1,28 @@
 <?php
 
 class BaseController {
-  
-  private $model;
 
-  function __construct($modelName) {
-    $this->model = $modelName;
+  public function __construct() {}
+
+  public function index() {
+    $this->modelName = new $this->model();
+    $result = $this->modelName->index();
   }
 
-  public function all() {
-    $baseModelObj = new BaseModel;
-    $baseModelObj->all($this->model);
+  public function insert() {
+    $this->modelName = new $this->model();
+    $result = $this->modelName->insert();
   }
 
-  public function firstRecord() {
-    echo "First Record";
+  public function update() {
+    $this->modelName = new $this->model();
+    $result = $this->modelName->update();
   }
 
-  public function lastRecord() {
-    echo "Last Record";
-  }
-
-  public function find() {
-    echo "find";
+  public function delete() {
+    $this->modelName = new $this->model();
+    $result = $this->modelName->delete();
   }
 }
+
 ?>
