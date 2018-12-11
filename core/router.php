@@ -12,7 +12,7 @@ class Router {
   private function parseUri() {
 
     if(isset($_SERVER['PATH_INFO'])) {
-      $path= $_SERVER['PATH_INFO'];
+      $path = $_SERVER['PATH_INFO'];
       $pathSplit = explode('/', ltrim($path));
     }
     else {
@@ -26,51 +26,57 @@ class Router {
   }
 
   private function setParams() {
-    $this->params = array_slice($this->pathArray, 3);
+    if(sizeof($this->pathArray) > 2)
+      $this->params = array_slice($this->pathArray, 3);
   }
 
   private function setController() {
 
-    $reqController = $this->pathArray[1];
-    $reqModel = $this->pathArray[1];
-    $controllerPath = ROOTPATH . '/app/controllers/'.$reqController.'_controller.php';
-    $modelPath = ROOTPATH . '/app/models/'.$reqModel.'_model.php';
-
-    if (file_exists($controllerPath))
-    {
-      include_once $controllerPath;
-      $model = ucfirst($reqModel).'Model';
-      $this->controller = ucfirst($reqController).'Controller';
-
-      $method = $this->action;
-      
-      if (file_exists($modelPath)) {
-        include_once $modelPath;
-        $ModelObj = new $model;
-        $controllerObj = new $this->controller($model);
-      }
-      else {
-        $controllerObj = new $this->controller();
-      }
-
-      if ($method != '') {
-        if (method_exists($controllerObj, $method)) {
-          if( sizeof($this->params) )
-            $controllerObj->$method($model,$this->params);
-          else
-            $controllerObj->$method($model);
-        }
-        else {
-          die('No such Method Found');
-        }
-      }
-      else {
-        echo "No method metioned. We will set a default path";
-      }
+    if( $this->pathArray === '/') {
+      echo "Redirect to Home Page \n";
     }
     else {
-      header('HTTP/1.1 404 Not Found');
-      die('404 - The file - '.' - not found');
+      $reqController = $this->pathArray[1];
+      $reqModel = $this->pathArray[1];
+      $controllerPath = ROOTPATH . '/app/controllers/'.$reqController.'_controller.php';
+      $modelPath = ROOTPATH . '/app/models/'.$reqModel.'_model.php';
+
+      if (file_exists($controllerPath))
+      {
+        include_once $controllerPath;
+        $model = ucfirst($reqModel).'Model';
+        $this->controller = ucfirst($reqController).'Controller';
+
+        $method = $this->action;
+        
+        if (file_exists($modelPath)) {
+          include_once $modelPath;
+          $ModelObj = new $model;
+          $controllerObj = new $this->controller($model);
+        }
+        else {
+          $controllerObj = new $this->controller();
+        }
+
+        if ($method != '') {
+          if (method_exists($controllerObj, $method)) {
+            if( sizeof($this->params) )
+              $controllerObj->$method($this->params);
+            else
+              $controllerObj->$method();
+          }
+          else {
+            die('No such Method Found or 404 error');
+          }
+        }
+        else {
+          echo "No method metioned. We will set a default path";
+        }
+      }
+      else {
+        header('HTTP/1.1 404 Not Found');
+        die('No Controller found. 404 - The file not found');
+      }
     }
   }
 

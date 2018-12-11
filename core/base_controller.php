@@ -2,22 +2,27 @@
 
 class BaseController {
   
-  public function all($modelName) {
-    $baseModelObj = new BaseModel;
-    $baseModelObj->all($modelName);
+  private $model;
+
+  function __construct($modelName) {
+    $this->model = $modelName;
   }
 
-  public function firstRecord($modelName) {
+  public function all() {
+    $baseModelObj = new BaseModel;
+    $baseModelObj->all($this->model);
+  }
+
+  public function firstRecord() {
     echo "First Record";
   }
 
-  public function lastRecord($modelName) {
+  public function lastRecord() {
     echo "Last Record";
   }
 
-  public function find($modelName) {
+  public function find() {
     echo "find";
   }
 }
-
 ?>

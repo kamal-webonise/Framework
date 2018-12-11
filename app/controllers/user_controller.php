@@ -3,9 +3,10 @@
 class UserController extends BaseController {
 	private $model;
 
-	function __construct( $tile )
+	function __construct($modelName)
 	{
-		$this->model = new $tile;
+		$this->model = new $modelName;
+		parent::__construct($modelName);
 	}
 
 	public function index()
@@ -18,9 +19,7 @@ class UserController extends BaseController {
 		echo "Login Method";
 	}
 	
-	public function showUsers($modelName) {
-		echo "hey";
-		// $obj = new $modelName;
+	public function showUsers() {
 		$this->model->getUsers();
 	}
 }
