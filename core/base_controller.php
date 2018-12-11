@@ -2,26 +2,27 @@
 
 class BaseController {
 
-  public function __construct() {}
+  public $modelName = '';  
+
+  public function __construct() {
+    $this->getModelName();
+    $this->modelName = new $this->modelName();
+  }
 
   public function index() {
-    $this->modelName = new $this->model();
-    $result = $this->modelName->index();
+    
   }
 
-  public function insert() {
-    $this->modelName = new $this->model();
-    $result = $this->modelName->insert();
+  public function lastRecord() {    
+
   }
 
-  public function update() {
-    $this->modelName = new $this->model();
-    $result = $this->modelName->update();
+  public function firstRecord() {
+    
   }
 
-  public function delete() {
-    $this->modelName = new $this->model();
-    $result = $this->modelName->delete();
+  private function getModelName() {
+    $this->modelName = str_replace('Controller', 'Model' , get_class($this));
   }
 }
 

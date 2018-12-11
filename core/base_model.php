@@ -13,7 +13,10 @@ class BaseModel {
     }
 
     public function index() {
-       
+        //return $this->databaseConnection->query("select * from $this->table");
+        $sql = "select * from $this->table";
+        echo $sql;
+        return $this->databaseConnection->query("select * from users");
     }
 
     protected function setTableColumns() {
