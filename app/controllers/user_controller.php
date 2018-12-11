@@ -1,26 +1,26 @@
 <?php
 
 class UserController extends BaseController {
-	private $model;
 
-	function __construct($modelName)
+	function __construct()
 	{
-		$this->model = new $modelName;
-		parent::__construct($modelName);
-	}
+		parent::__construct();
+  }
+    
+  public function insertUser() {
 
-	public function index()
-	{
-		echo "Index Method";
-	}
+		$postArray = array(
+			"username" => $_POST['username'],
+			"email" => $_POST['email'],
+			"password" => $_POST['password']
+		);
+		$this->view->postedData($postArray);
+		print_r($this->view->dataArray);
+		$this->databaseConnection->insert('users', $postArray);
+  }
 
-	public function login()
-	{
-		echo "Login Method";
-	}
-	
-	public function showUsers() {
-		$this->model->getUsers();
-	}
+  public function getUser() {
+      $this->view->postedData($this->databaseConnection->query('select * from users')->results());
+      $this->view->render('home/about');
+  }
 }
-?>

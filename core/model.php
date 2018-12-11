@@ -1,22 +1,16 @@
 <?php
 
-class BaseModel {
+class Model {
     protected $databaseConnection, $table, $modelName, $columnName = [];
     public $id;
 
-    public function __construct() {
+    public function __construct($table) {
         $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
-        $this->getTableName();
+        $this->table = $table;
+        $this->setTableColumns();
 
         // gets model name from table name eg:- table_name will become TableName
         $this->modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->table)));
-    }
-
-    public function index() {
-        //return $this->databaseConnection->query("select * from $this->table");
-        $sql = "select * from $this->table";
-        echo $sql;
-        return $this->databaseConnection->query("select * from users");
     }
 
     protected function setTableColumns() {
@@ -79,18 +73,4 @@ class BaseModel {
             return $this->insert($fields);
         }
     }
-
-    public function getTableName() {
-
-        if (!isset($this->table)) {
-            $tableArray = preg_split('/(?=[A-Z])/', get_class($this));
-            $tableString = '';
-            foreach($tableArray as $table) {
-                $tableString .= '_'.lcFirst($table);
-            }
-            $tableString .= 's';
-            $this->table = ltrim($tableString, '_');
-        }
-    }
-
 }

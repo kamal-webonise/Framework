@@ -1,16 +1,17 @@
 <?php
 
 // Gets database files 
+require_once(ROOTPATH . '/config/config.php');
 require_once(ROOTPATH . '/config/database_config.php');
-require_once(ROOTPATH . '/database/database_interface.php');
-require_once(ROOTPATH . '/database/database_factory.php');
 
 // Autoload  classes
 function __autoload($className) {
 
     $className = convertToFileName($className);
     
-    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {        
+    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {  
+        require_once(ROOTPATH . '/database/database_interface.php');      
+        require_once(ROOTPATH . '/database/database_factory.php');
         require_once(ROOTPATH . '/database/' . $className . '.php');
     }
     else if(file_exists(ROOTPATH . '/core/' . $className . '.php')) {

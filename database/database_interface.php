@@ -1,4 +1,5 @@
 <?php
+
 interface DatabaseInterface
 {
     public function query($sql, $params = []);

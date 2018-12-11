@@ -1,8 +1,11 @@
 <?php
-class DatabaseFactory {
 
-    public static function getDatabaseInstance($dbConfigName) {
+class DatabaseFactory {
+    public static function getDatabaseInstance() {
+        
         global $db;
+        $dbConfigName = $db['dbserver'];
+
         switch($dbConfigName) {
             case 'mysql' :
                 return Mysql::getInstance($db);
