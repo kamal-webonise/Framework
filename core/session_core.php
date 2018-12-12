@@ -1,6 +1,6 @@
 <?php
 
-class Session {
+class SessionCore {
     public static function exists($name) {
         return (isset($_SESSION[$name])) ? true : false;
     }

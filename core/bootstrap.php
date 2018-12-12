@@ -18,8 +18,14 @@ function __autoload($className) {
     else if(file_exists(ROOTPATH . '/core/' . $className . '.php')) {
         require_once(ROOTPATH . '/core/' . $className . '.php');
     }
-    else if(file_exists(ROOTPATH . '/app/model/' . $className . '.php')) {
-        require_once(ROOTPATH . '/app/model/' . $className . '.php');
+    else if(file_exists(ROOTPATH . '/app/models/' . $className . '.php')) {
+        require_once(ROOTPATH . '/app/models/' . $className . '.php');
+    }
+    else if(file_exists(ROOTPATH . '/session/' . $className . '.php')) {
+        require_once(ROOTPATH . '/session/' . $className . '.php');
+    }
+    else if(file_exists(ROOTPATH . '/config/' . $className . '.php')) {
+        require_once(ROOTPATH . '/config/' . $className . '.php');
     }
     else {
         die('Cannot include files' . $className);

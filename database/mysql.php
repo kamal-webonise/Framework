@@ -30,7 +30,7 @@ class Mysql implements DatabaseInterface {
     
     public static function getInstance($dbConfigArray) {
 
-        if(!isset(self::$instance)) {
+        if((self::$instance)==null) {
             self::$instance = new Mysql($dbConfigArray);
         }
 
@@ -54,6 +54,7 @@ class Mysql implements DatabaseInterface {
                 $this->count = $this->query->rowCount();
                 $this->lastInsertId = $this->pdo->lastInsertId();
             }
+
             else {
                 $this->error = true;
             }

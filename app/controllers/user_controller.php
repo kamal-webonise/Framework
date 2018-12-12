@@ -1,12 +1,15 @@
 <?php
 
 class UserController extends BaseController {
-	private $view, $postGlobalArray;
-	function __construct()
+
+	private $model;
+
+	function __construct($modelName)
 	{
-		parent::__construct();
-		$this->view = new BaseView();
-  	}
+		$this->model = new $modelName;
+		parent::__construct($modelName);
+	}
+
     
   	public function insertUser() {
 
@@ -37,8 +40,17 @@ class UserController extends BaseController {
   		header( 'Location: /Framework/app/views/signup.html');
   	}
 
-  	// function insertUsers() {
-  	// 	// echo $_POST['email'];
-
-  	// }
+	public function login()
+	{
+		echo "Login Method";
+	}
+	
+	public function showUsers() {
+		$middleware=new Middleware;
+		if($middleware->secureHandle()){
+			$this->model->getUsers();
+		}else{
+			echo "Unauthorised";
+		}
+	}
 }
