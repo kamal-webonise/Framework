@@ -31,7 +31,7 @@ class Middleware{
 	public function authenticateUser(){
 		$session=new Session;
 		$userSession=explode(",",$session->getSession());
-		if(empty($userSession)){
+		if(empty($userSession) || $userSession[0]==""){
 			throw new Exception("Session data not found !");
 		}
 		$sessionModel =new SessionModel;

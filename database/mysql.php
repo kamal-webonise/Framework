@@ -6,7 +6,7 @@ class Mysql implements DatabaseInterface {
     private $pdo, $query, $error = false, $result, $count = 0, $lastInsertId = null;
     
     // connection fields
-    private $databaseServer, $host, $databaseName, $user, $password,$result;
+    private $databaseServer, $host, $databaseName, $user, $password;
     
     /*
         Database connection having a Singleton Design Pattern.

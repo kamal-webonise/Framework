@@ -1,12 +1,15 @@
 <?php
 
 class UserController extends BaseController {
-	private $view, $postGlobalArray;
-	function __construct()
+
+	private $model;
+
+	function __construct($modelName)
 	{
-		parent::__construct();
-		$this->view = new BaseView();
-  	}
+		$this->model = new $modelName;
+		parent::__construct($modelName);
+	}
+
     
   	public function insertUser() {
 
