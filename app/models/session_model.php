@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 class SessionModel {
 
@@ -15,7 +15,7 @@ class SessionModel {
             "expires_at" => $expiresAt,
             "user_id" => $userID
         );
-        $this->dbConnection->insert('session',$sessionArray);
+        return $this->dbConnection->insert('session',$sessionArray);
     }
 
     public function updateSession($id,$uuid,$expiresAt,$userID){
@@ -24,18 +24,18 @@ class SessionModel {
             "expires_at" => $expiresAt,
             "user_id" => $userID
         );
-        $this->dbConnection->update('session',$id,$sessionArray);
+        return $this->dbConnection->update('session',$id,$sessionArray);
     }
 
-    public function deleteSession($id,$uuid,$expiresAt,$userID){
+    public function deleteSession($id){
         $this->dbConnection->delete('session',$id);
     }
 
     public function sessionByUserIdAndUuId($userID,$uuid){
-    $sql="SELECT * from sesion where uuid={$uuid} and user_id={$userID}";
+    $sql="SELECT * from session where uuid='{$uuid}' and user_id='{$userID}'";
         $result=$this->dbConnection->query($sql);
-        return $result->result();
+        return $result->results();
     }
 }
 
-?> -->
+?>
