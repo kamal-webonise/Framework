@@ -8,6 +8,7 @@ class Router {
   private $action = self::DEFAULT_ACTION;
   private $params = array();
   private $pathArray = array();
+  private $errInstance;
 
   private function parseUri() {
 
@@ -66,7 +67,9 @@ class Router {
               $controllerObj->$method();
           }
           else {
-            die('No such Method Found or 404 error');
+            $error = 'No such Method Found or 404 error';
+            ErrorLog::Exception($error);
+            die($error);
           }
         }
         else {
@@ -74,8 +77,10 @@ class Router {
         }
       }
       else {
+        $error = 'No Such Controller found. 404 - The file not found';
+        ErrorLog::Exception($error);
         header('HTTP/1.1 404 Not Found');
-        die('No Controller found. 404 - The file not found');
+        die($error);
       }
     }
   }

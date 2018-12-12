@@ -10,7 +10,7 @@ class BaseController {
   }
 
   public function index() {
-    
+    print_r($this->modelName->index());
   }
 
   public function lastRecord() {    

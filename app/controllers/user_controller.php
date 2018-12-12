@@ -1,26 +1,44 @@
 <?php
 
 class UserController extends BaseController {
-
+	private $view, $postGlobalArray;
 	function __construct()
 	{
 		parent::__construct();
-  }
+		$this->view = new BaseView();
+  	}
     
-  public function insertUser() {
+  	public function insertUser() {
 
 		$postArray = array(
-			"username" => $_POST['username'],
-			"email" => $_POST['email'],
-			"password" => $_POST['password']
+			"email" => 'asdf',
+			"password" => 'asdf'
 		);
-		$this->view->postedData($postArray);
-		print_r($this->view->dataArray);
-		$this->databaseConnection->insert('users', $postArray);
-  }
+		
+		print_r($postArray);
+      	$result = $this->modelName->insertUser($postArray);
+        print_r($result);
+      	$this->view->postedData($postArray);
+      	// $this->view->render('user');
 
-  public function getUser() {
+      	//var_dump($result);
+
+		// $this->view->postedData($postArray);
+		// print_r($this->view->dataArray);
+		// $this->databaseConnection->insert('users', $postArray);
+  	}
+
+  	public function getUser() {
       $this->view->postedData($this->databaseConnection->query('select * from users')->results());
       $this->view->render('home/about');
-  }
+  	}
+
+  	function signup() {
+  		header( 'Location: /Framework/app/views/signup.html');
+  	}
+
+  	// function insertUsers() {
+  	// 	// echo $_POST['email'];
+
+  	// }
 }
