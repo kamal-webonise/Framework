@@ -30,8 +30,8 @@ class LoginController extends BaseController {
 			$session=new Session;
 			$uuid=$session->createSession($users[0]->id);
 			$sessionModel=new SessionModel;
-			$isNotInserted=$sessionModel->insertSession($uuid,date('Y-m-d H:i:s',time() + (60 * 30)),$users[0]->id);
-			if($isNotInserted){
+			$isInserted=$sessionModel->insertSession($uuid,date('Y-m-d H:i:s',time() + (60 * 30)),$users[0]->id);
+			if(!$isInserted){
 				throw new Exception("Unable to insert session data !");	
 			}
 		header('Location:/Framework/app/views/dashboard.html');

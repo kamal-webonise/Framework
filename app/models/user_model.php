@@ -6,8 +6,8 @@ class UserModel
     private $dbConnection;
 
 	public function __construct() {
-        global $db;
-        $this->dbConnection = DatabaseFactory::getDatabaseInstance($db['dbserver']);
+        
+        $this->dbConnection = DatabaseFactory::getDatabaseInstance();
 	}   
 	
 	public function getUsers() {
@@ -17,8 +17,7 @@ class UserModel
 		["name" => "Oji Mike", "Phone Number"=> "080982xxxxxx"]
 		];
 		print_r($user);
-		global $db;
-		$pdo = DatabaseFactory::getDatabaseInstance($db['dbserver']);
+		$pdo = DatabaseFactory::getDatabaseInstance();
 		$users = $pdo->query("select * from users");
 		
 		print_r(json_encode($users));
