@@ -3,6 +3,7 @@
 // Gets database files 
 require_once(ROOTPATH . '/config/config.php');
 require_once(ROOTPATH . '/config/database_config.php');
+require_once(ROOTPATH . '/core/error_log.php');
 
 // Autoload  classes
 function __autoload($className) {
@@ -16,6 +17,9 @@ function __autoload($className) {
     }
     else if(file_exists(ROOTPATH . '/core/' . $className . '.php')) {
         require_once(ROOTPATH . '/core/' . $className . '.php');
+    }
+    else if(file_exists(ROOTPATH . '/app/model/' . $className . '.php')) {
+        require_once(ROOTPATH . '/app/model/' . $className . '.php');
     }
     else {
         die('Cannot include files' . $className);

@@ -78,9 +78,9 @@ class Mysql implements DatabaseInterface {
 
         $sql = "INSERT INTO {$table} ({$fieldString}) VALUES({$valueString})";
         if($this->query($sql, $values)->error()) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public function update($table, $id, $fields = []) {

@@ -5,16 +5,16 @@ class BaseModel {
     public $id;
 
     public function __construct() {
-        $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
-        $this->getTableName();
+      $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
+      $this->getTableName();
 
-        // gets model name from table name eg:- table_name will become TableName
-        $this->modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->table)));
+      // gets model name from table name eg:- table_name will become TableName
+      $this->modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->table)));
     }
 
     public function index() {
         //return $this->databaseConnection->query("select * from $this->table");
-        $sql = "select * from $this->table";
+        $sql = "select * from ". $this->table;
         echo $sql;
         return $this->databaseConnection->query("select * from users");
     }
@@ -83,13 +83,13 @@ class BaseModel {
     public function getTableName() {
 
         if (!isset($this->table)) {
-            $tableArray = preg_split('/(?=[A-Z])/', get_class($this));
-            $tableString = '';
-            foreach($tableArray as $table) {
-                $tableString .= '_'.lcFirst($table);
-            }
-            $tableString .= 's';
-            $this->table = ltrim($tableString, '_');
+          $tableArray = preg_split('/(?=[A-Z])/', str_replace("Model","",get_class($this)));
+          $tableString = '';
+          foreach($tableArray as $table) {
+              $tableString .= '_'.lcFirst($table);
+          }
+          $tableString .= 's';
+          $this->table = ltrim($tableString, '_');
         }
     }
 
