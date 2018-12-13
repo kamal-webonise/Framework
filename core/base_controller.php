@@ -23,7 +23,7 @@ class BaseController {
   }
 
   public function lastRecord() {    
-
+    
   }
 
   public function firstRecord() {
