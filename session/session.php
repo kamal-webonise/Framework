@@ -27,7 +27,7 @@
         }
     }
     public function deleteSession(){
-        unset($COOKIE['user_session']);
+        unset($_COOKIE['user_session']);
         setcookie('user_session', null, -1, '/');
     }
 }
