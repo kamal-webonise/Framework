@@ -19,7 +19,7 @@ class UserController extends BaseController {
   	}
 
   	function signup() {
-  		$this->view->render('signup');
+		$this->view->render('signup');
   	}
 
 	public function login()
@@ -55,7 +55,8 @@ class UserController extends BaseController {
 		$this->view->postedData($arr);
 		$res=$this->modelName->insert($this->view->getpostedData());
 		if($res==1){
-			header('Location:/Framework/app/views/login.html');
+			//header('Location:/Framework/app/views/login.html');
+			$this->view->render("login");
 		}
 		else{
 			echo "Record Cannot be Inserted";

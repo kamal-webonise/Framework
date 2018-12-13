@@ -23,7 +23,11 @@ class LoginController extends BaseController {
 			$this->view->render('dashboard');
 			return;
 		}
-		session_start();
+		if(!session_id())
+		{
+			session_start();
+		}
+		
 		$_SESSION['email']=$_POST['email'];
 		$userModel= new UserModel;
 		$users=$userModel->getUserByEmail($_POST['email']);
@@ -50,7 +54,8 @@ class LoginController extends BaseController {
 		}
 	}
 	public function renderLogin(){
-		header('Location:/Framework/app/views/login.html');
+		//header('Location:/Framework/app/views/login.html');
+		$this->view->render("login");
 	}
 	public function showUsers() {
 		$userId = $_Session['id'];
@@ -69,7 +74,8 @@ class LoginController extends BaseController {
 		}
 		$sessionModel->deleteUserSession($userSession[1]);
 		$session->deleteSession();
-		header('Location:/Framework/app/views/login.html');
+		//header('Location:/Framework/app/views/login.html');
+		$this->view->render("login");
 	}
 }
 ?>
