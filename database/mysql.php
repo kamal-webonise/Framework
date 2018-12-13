@@ -2,9 +2,10 @@
 
 class Mysql implements DatabaseInterface {
 
-    private static $instance = null;
+    public static $instance = null;
+
     private $pdo, $query, $error = false, $result, $count = 0, $lastInsertId = null;
-    
+
     // connection fields
     private $databaseServer, $host, $databaseName, $user, $password;
     
@@ -20,17 +21,12 @@ class Mysql implements DatabaseInterface {
         $this->user = $dbConfigArray['username'];
         $this->password = $dbConfigArray['password'];
 
-        try {
-            $this->pdo = new PDO($this->databaseServer.':host='.$this->host.';dbname='.$this->databaseName,$this->user,$this->password);
-        }
-        catch (PDOException $pdoException){
-            die($pdoException->getMessage());
-        }
+        $this->pdo = new PDO($this->databaseServer.':host='.$this->host.';dbname='.$this->databaseName,$this->user,$this->password);
+        
     }
     
     public static function getInstance($dbConfigArray) {
-
-        if((self::$instance)==null) {
+        if(!isset(self::$instance)) {           
             self::$instance = new Mysql($dbConfigArray);
         }
 
@@ -54,8 +50,8 @@ class Mysql implements DatabaseInterface {
                 $this->count = $this->query->rowCount();
                 $this->lastInsertId = $this->pdo->lastInsertId();
             }
-
             else {
+                ErrorLog::Exception("Cannot execute query");
                 $this->error = true;
             }
         }
@@ -79,6 +75,7 @@ class Mysql implements DatabaseInterface {
 
         $sql = "INSERT INTO {$table} ({$fieldString}) VALUES({$valueString})";
         if($this->query($sql, $values)->error()) {
+            ErrorLog::Exception("Cannot insert record");
             return false;
         }
         return true;
@@ -99,6 +96,7 @@ class Mysql implements DatabaseInterface {
 
         $sql = "UPDATE {$table} SET {$fieldString} WHERE id = {$id}";
         if($this->query($sql, $values)->error()) {
+            ErrorLog::Exception("Cannot update record");
             return true;
         }
         return false;
@@ -107,13 +105,21 @@ class Mysql implements DatabaseInterface {
     public function delete($table, $id) {
         $sql = "DELETE FROM {$table} WHERE id = {$id}";
         if($this->query($sql)->error()) {
+            ErrorLog::Exception("Cannot delete record");
             return true;
         }
         return false;
     }
 
     public function results() {
-        return $this->result;
+        if(empty($this->result)) {
+            $errorMsg = "No result found";
+            ErrorLog::Exception($errorMsg);
+            throw new Exception($errorMsg);
+        }
+        else {
+            return $this->result;
+        }
     }
 
     public function first() {
@@ -129,7 +135,15 @@ class Mysql implements DatabaseInterface {
     }
 
     public function getColumns($table) {
-        return $this->query("SHOW COLUMNS FROM {$table}")->results();
+        $getCols = $this->query("SHOW COLUMNS FROM {$table}")->results();
+        if(empty($getCols)) {
+            $errorMsg = "No columns found";
+            ErrorLog::Exception($errorMsg);
+            throw new Exception($errorMsg);
+        }
+        else {
+            return $getCols;
+        }
     }
 
     public function error() {
