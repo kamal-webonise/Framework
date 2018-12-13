@@ -48,11 +48,12 @@ class Mysql implements DatabaseInterface {
                     $paramCount++;
                 }
             }
-
+            //print_r($this->query);
             if($this->query->execute()) {
                 $this->result = $this->query->fetchAll(PDO::FETCH_OBJ);
                 $this->count = $this->query->rowCount();
                 $this->lastInsertId = $this->pdo->lastInsertId();
+                $this->error = true;
             }
             else {
                 $this->error = true;
@@ -77,6 +78,7 @@ class Mysql implements DatabaseInterface {
         $valueString = rtrim($valueString, ',');
 
         $sql = "INSERT INTO {$table} ({$fieldString}) VALUES({$valueString})";
+        
         if($this->query($sql, $values)->error()) {
             return true;
         }

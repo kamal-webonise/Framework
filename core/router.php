@@ -51,7 +51,7 @@ class Router {
         
         if (file_exists($modelPath)) {
           include_once $modelPath;
-          $ModelObj = new $model;
+          //$ModelObj = new $model;
           $controllerObj = new $this->controller($model);
         }
         else {

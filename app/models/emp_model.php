@@ -1,6 +1,9 @@
-<?php
-class UserModel extends BaseModel
-{
+<?php 
+
+ //require_once "/opt/lampp/htdocs/Framework/database/mysqldatabase.php";
+
+ class EmpModel extends BaseModel{ 
+
 	public function __construct(){
 		//echo "Calling constructor";
 		parent::__construct();
@@ -12,5 +15,5 @@ class UserModel extends BaseModel
 		//parent::$table = "TestTable";
 		
 	}
+ 
 }
-?>

@@ -1,27 +1,26 @@
 <?php
-
 // Gets database files 
 require_once(ROOTPATH . '/config/config.php');
 require_once(ROOTPATH . '/config/database_config.php');
-
+require_once(ROOTPATH . '/database/database_interface.php');
+require_once(ROOTPATH . '/database/database_factory.php');
 // Autoload  classes
 function __autoload($className) {
-
     $className = convertToFileName($className);
     
-    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {  
-        require_once(ROOTPATH . '/database/database_interface.php');      
-        require_once(ROOTPATH . '/database/database_factory.php');
+    if(file_exists(ROOTPATH . '/database/' . $className . '.php')) {        
         require_once(ROOTPATH . '/database/' . $className . '.php');
     }
     else if(file_exists(ROOTPATH . '/core/' . $className . '.php')) {
         require_once(ROOTPATH . '/core/' . $className . '.php');
     }
+    else if(file_exists(ROOTPATH . '/app/models/' . $className . '.php')) {
+        require_once(ROOTPATH . '/app/models/' . $className . '.php');
+    }
     else {
-        die('Cannot include files' . $className);
+        die('Cannot include files ' . $className);
     }
 }
-
 // Convert pascal case to framework file name case
 function convertToFileName($className) {
     $convertedClassCase = '';
