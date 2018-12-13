@@ -45,5 +45,20 @@ class LoginController extends BaseController {
 		$userId = $_Session['id'];
 		echo $userId;
 	}
+	public function logout(){
+		$session=new Session;
+		$userSession=explode(",",$session->getSession());
+		if(empty($userSession) || $userSession[0]==""){
+			throw new Exception("Session data not found !");
+		}
+		$sessionModel =new SessionModel;
+		$userDbSession=$sessionModel->sessionByUserIdAndUuId($userSession[1],$userSession[0]);
+		if(count($userDbSession)<1){
+			throw new Exception("DB session data not found !");
+		}
+		$sessionModel->deleteUserSession($userSession[1]);
+		$session->deleteSession();
+		header('Location:/Framework/app/views/login.html');
+	}
 }
 ?>
