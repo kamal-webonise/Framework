@@ -1,40 +1,34 @@
 <?php
 
-class UserModel
+class UserModel extends BaseModel
 {
-	private $pdo;
-    private $dbConnection;
 
 	public function __construct() {
-        
-        $this->dbConnection = DatabaseFactory::getDatabaseInstance();
+        parent::__construct();
+        // $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
 	}   
-	
-	public function getUsers() {
+
+	function getUsers() {
+		$users = $this->databaseConnection->query("select * from users")->results();
 		
-		$user = [
-		["name" => "Williams Isaac", "Phone Number" => "090982xxxxxx"],
-		["name" => "Oji Mike", "Phone Number"=> "080982xxxxxx"]
-		];
-		print_r($user);
-		$pdo = DatabaseFactory::getDatabaseInstance();
-		$users = $pdo->query("select * from users");
-		
-		print_r(json_encode($users));
+		print_r($users);
 	}
 
-	public function getUserByEmail($email){
+	function getUserByEmail($email) {
 		$sql="SELECT * from users where email='{$email}'";
-		$result=$this->dbConnection->query($sql);
+		$result=$this->databaseConnection->query("SELECT * from users where email='{$email}'");
+		return($result->results());
+	}
+
+	function getPasswordByEmail($email){
+		$sql="SELECT password from users where email='{$email}'";
+		$result=$this->databaseConnection->query($sql);
 		
 		return $result->results();		
 	}
 
-	public function getPasswordByEmail($email){
-		$sql="SELECT password from users where email='{$email}'";
-		$result=$this->dbConnection->query($sql);
-		
-		return $result->results();		
+	function deleteUser($userId) {
+		$result = $this->delete($userId);
 	}
 }
 ?>

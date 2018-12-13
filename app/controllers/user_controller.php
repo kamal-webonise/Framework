@@ -2,33 +2,15 @@
 
 class UserController extends BaseController {
 
-	private $model;
-
-	function __construct($modelName)
+	function __construct()
 	{
-		$this->model = new $modelName;
-		parent::__construct($modelName);
+		parent::__construct();
 	}
 
     
   	public function insertUser() {
-
-		$postArray = array(
-			"email" => 'asdf',
-			"password" => 'asdf'
-		);
-		
-		print_r($postArray);
-      	$result = $this->modelName->insertUser($postArray);
-        print_r($result);
       	$this->view->postedData($postArray);
-      	// $this->view->render('user');
-
-      	//var_dump($result);
-
-		// $this->view->postedData($postArray);
-		// print_r($this->view->dataArray);
-		// $this->databaseConnection->insert('users', $postArray);
+      	$this->view->render('user');
   	}
 
   	public function getUser() {
@@ -48,9 +30,17 @@ class UserController extends BaseController {
 	public function showUsers() {
 		$middleware=new Middleware;
 		if($middleware->secureHandle()){
-			$this->model->getUsers();
+			$this->modelName->getUsers();
 		}else{
 			echo "Unauthorised";
 		}
+	}
+	public function deleteAccount() {
+		$session = new Session;
+		$userSession = explode(",",$session->getSession());
+		$userId = $userSession[1];
+		$sessionObj = new SessionModel();
+		$sessionObj->deleteUserSession($userId);
+		$this->modelName->deleteUser($userId);
 	}
 }

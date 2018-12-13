@@ -1,12 +1,10 @@
 <?php
 
 class LoginController extends BaseController {
-	private $model;
 
-	function __construct($modelName)
+	function __construct()
 	{
-		$this->model = new $modelName;
-		parent::__construct($modelName);
+		parent::__construct();
 	}
 
 	public function index()
@@ -17,8 +15,7 @@ class LoginController extends BaseController {
 	public function login()
 	{
 		$userModel= new UserModel;
-		echo "Login Method";
-		$users=$userModel->getUserByEmail('chirag.painter@weboniselab.com');
+		$users=$userModel->getUserByEmail($_POST['email']);
 		if(count($users)<1){
 			throw new Exception("Email id not found !");
 		}
@@ -26,7 +23,7 @@ class LoginController extends BaseController {
 		if(count($userPassword)<1){
 			throw new Exception("Password not found !");
 		}
-		if($_POST['password']==$userPassword[0]->password){
+		if($_POST['password']==$userPassword[0]->password) {
 			$session=new Session;
 			$uuid=$session->createSession($users[0]->id);
 			$sessionModel=new SessionModel;
@@ -34,7 +31,9 @@ class LoginController extends BaseController {
 			if(!$isInserted){
 				throw new Exception("Unable to insert session data !");	
 			}
-		header('Location:/Framework/app/views/dashboard.html');
+			$this->view->postedData($users);
+			$this->view->render('dashboard');
+
 		}else{
 			throw new Exception("Email id or password is incorrect !");
 		}
@@ -43,7 +42,8 @@ class LoginController extends BaseController {
 		header('Location:/Framework/app/views/login.html');
 	}
 	public function showUsers() {
-		$this->model->getUsers();
+		$userId = $_Session['id'];
+		echo $userId;
 	}
 }
 ?>

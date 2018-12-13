@@ -51,12 +51,11 @@ class BaseModel {
     }
 
     public function delete($id = '') {
-        if($d == '' && $this->id == '') {
+        
+        if($id == '' && $this->id == '') {
             return false;
         }
-
         $id = ($id == '') ? $this->id : $id; // if no id is passed, already available id will be used
-
         return $this->databaseConnection->delete($this->table, $id);
     }
 

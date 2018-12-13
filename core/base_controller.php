@@ -2,11 +2,20 @@
 
 class BaseController {
 
-  public $modelName = '';  
+  public $modelName = '', $view, $modelPath;
 
   public function __construct() {
     $this->getModelName();
-    $this->modelName = new $this->modelName();
+    $this->getModelPath();
+    if(file_exists($this->modelPath)) {
+      $this->modelName = new $this->modelName();
+    }
+    $this->view = new BaseView();
+  }
+
+  public function getModelPath() {
+    $name = lcfirst(str_replace( 'Controller', '_model.php',  get_class($this)));
+    $this->modelPath = ROOTPATH . '/app/models/'.$name;
   }
 
   public function index() {
