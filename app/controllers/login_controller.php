@@ -14,6 +14,17 @@ class LoginController extends BaseController {
 
 	public function login()
 	{
+		$session=new Session;
+		$userSession=explode(",",$session->getSession());
+		if(!(empty($userSession) || $userSession[0]=="")){
+			$userModel= new UserModel;
+			$users=$userModel->getUserByEmail($_SESSION['email']);
+			$this->view->postedData($users);
+			$this->view->render('dashboard');
+			return;
+		}
+		session_start();
+		$_SESSION['email']=$_POST['email'];
 		$userModel= new UserModel;
 		$users=$userModel->getUserByEmail($_POST['email']);
 		if(count($users)<1){
