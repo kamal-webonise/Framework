@@ -24,7 +24,7 @@ class UserController extends BaseController {
 
 	public function login()
 	{
-		echo "Login Method";
+		$this->view->render('login');
 	}
 	
 	public function showUsers() {
@@ -42,6 +42,8 @@ class UserController extends BaseController {
 		$sessionObj = new SessionModel();
 		$sessionObj->deleteUserSession($userId);
 		$this->modelName->deleteUser($userId);
+		//header('Location:/Framework/app/views/signup.php');
+		$this->view->render("signup");
 	}
 	
 	function register(){
@@ -53,7 +55,7 @@ class UserController extends BaseController {
 		$this->view->postedData($arr);
 		$res=$this->modelName->insert($this->view->getpostedData());
 		if($res==1){
-			echo "Record Inserted Successfully";
+			header('Location:/Framework/app/views/login.html');
 		}
 		else{
 			echo "Record Cannot be Inserted";
