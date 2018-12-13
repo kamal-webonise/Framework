@@ -52,12 +52,8 @@ class Router {
         
         if (file_exists($modelPath)) {
           include_once $modelPath;
-          $ModelObj = new $model;
-          $controllerObj = new $this->controller($model);
         }
-        else {
-          $controllerObj = new $this->controller();
-        }
+        $controllerObj = new $this->controller();
 
         if ($method != '') {
           if (method_exists($controllerObj, $method)) {

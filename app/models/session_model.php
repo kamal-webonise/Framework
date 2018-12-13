@@ -1,12 +1,9 @@
 <?php
 
-class SessionModel {
-
-    private $dbConnection;
+class SessionModel extends BaseModel {
 
     public function __construct() {
-        global $db;
-        $this->dbConnection = DatabaseFactory::getDatabaseInstance($db['dbserver']);
+        parent::__construct();
     }   
     
     public function insertSession($uuid,$expiresAt,$userID){
@@ -15,7 +12,7 @@ class SessionModel {
             "expires_at" => $expiresAt,
             "user_id" => $userID
         );
-        return $this->dbConnection->insert('session',$sessionArray);
+        return $this->databaseConnection->insert('sessions',$sessionArray);
     }
 
     public function updateSession($id,$uuid,$expiresAt,$userID){
@@ -24,17 +21,23 @@ class SessionModel {
             "expires_at" => $expiresAt,
             "user_id" => $userID
         );
-        return $this->dbConnection->update('session',$id,$sessionArray);
+        return $this->databaseConnection->update('sessions',$id,$sessionArray);
     }
 
-    public function deleteSession($id){
-        $this->dbConnection->delete('session',$id);
+    public function deleteSession($id) {
+        $this->databaseConnection->delete('sessions',$id);
     }
 
     public function sessionByUserIdAndUuId($userID,$uuid){
-    $sql="SELECT * from session where uuid='{$uuid}' and user_id='{$userID}'";
-        $result=$this->dbConnection->query($sql);
+    $sql="SELECT * from sessions where uuid='{$uuid}' and user_id='{$userID}'";
+        $result=$this->databaseConnection->query($sql);
         return $result->results();
+    }
+
+    public function deleteUserSession($userId) {
+        $arr = ["user_id" => $userId];
+        $sql="DELETE from sessions where user_id=?";
+        $this->databaseConnection->query($sql,$arr);
     }
 }
 
