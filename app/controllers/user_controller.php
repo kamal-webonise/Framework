@@ -42,6 +42,7 @@ class UserController extends BaseController {
 		$sessionObj = new SessionModel();
 		$sessionObj->deleteUserSession($userId);
 		$this->modelName->deleteUser($userId);
+		$session->deleteSession();
 		//header('Location:/Framework/app/views/signup.php');
 		$this->view->render("signup");
 	}
