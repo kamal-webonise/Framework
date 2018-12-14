@@ -15,9 +15,9 @@ class LoginController extends BaseController {
 	public function login()
 	{
 		$session=new Session;
+		$userModel= new UserModel;
 		$userSession=explode(",",$session->getSession());
 		if(!(empty($userSession) || $userSession[0]=="")){
-			$userModel= new UserModel;
 			$users=$userModel->getUserByEmail($_SESSION['email']);
 			$this->view->postedData($users);
 			$this->view->render('dashboard');
@@ -29,7 +29,6 @@ class LoginController extends BaseController {
 		}
 		
 		$_SESSION['email']=$_POST['email'];
-		$userModel= new UserModel;
 		$users=$userModel->getUserByEmail($_POST['email']);
 		if(count($users)<1){
 			throw new Exception("Email id not found !");
@@ -50,7 +49,7 @@ class LoginController extends BaseController {
 			$this->view->render('dashboard');
 
 		}else{
-			throw new Exception("Email id or password is incorrect !");
+			die("Email id or password is incorrect !");
 		}
 	}
 	public function renderLogin(){
@@ -72,6 +71,7 @@ class LoginController extends BaseController {
 		if(count($userDbSession)<1){
 			throw new Exception("DB session data not found !");
 		}
+
 		$sessionModel->deleteUserSession($userSession[1]);
 		$session->deleteSession();
 		//header('Location:/Framework/app/views/login.html');
