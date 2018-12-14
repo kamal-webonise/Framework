@@ -61,4 +61,8 @@ class UserController extends BaseController {
 			echo "Record Cannot be Inserted";
 		}
 	} 
+
+	function findTest() {
+		$this->modelName->find();
+	}
 }

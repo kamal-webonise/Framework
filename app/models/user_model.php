@@ -30,5 +30,15 @@ class UserModel extends BaseModel
 	function deleteUser($userId) {
 		$result = $this->delete($userId);
 	}
+
+	function find() {
+		$arr = [
+			"conditions" => "email = ?",
+			"bind" => ['vinay dubey'],
+			/*"order" => "name",
+			"limit" => "1"*/
+		];
+		return $this->databaseConnection->find('users', $arr);
+	}
 }
 ?>
