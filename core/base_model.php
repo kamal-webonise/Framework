@@ -15,8 +15,7 @@ class BaseModel {
     public function index() {
         //return $this->databaseConnection->query("select * from $this->table");
         $sql = "select * from ". $this->table;
-        echo $sql;
-        return $this->databaseConnection->query("select * from users");
+        return $this->query($sql)->results();
     }
 
     protected function setTableColumns() {
@@ -24,7 +23,6 @@ class BaseModel {
         foreach($columns as $column) {
             $columnName = $column->Field;
             $this->columnName[] = $column->Field;
-            //$this->{columnName} = null;
         }
     }
 
