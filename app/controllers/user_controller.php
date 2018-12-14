@@ -42,7 +42,6 @@ class UserController extends BaseController {
 		$sessionObj = new SessionModel();
 		$sessionObj->deleteUserSession($userId);
 		$this->modelName->deleteUser($userId);
-		//header('Location:/Framework/app/views/signup.php');
 		$this->view->render("signup");
 	}
 	
@@ -55,12 +54,10 @@ class UserController extends BaseController {
 		$this->view->postedData($arr);
 		$res=$this->modelName->insert($this->view->getpostedData());
 		if($res==1){
-			//header('Location:/Framework/app/views/login.html');
 			$this->view->render("login");
 		}
 		else{
 			echo "Record Cannot be Inserted";
 		}
-		//print_r($this->view->getpostedData());
 	} 
 }

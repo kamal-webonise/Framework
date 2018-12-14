@@ -5,12 +5,10 @@ class UserModel extends BaseModel
 
 	public function __construct() {
         parent::__construct();
-        // $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
 	}   
 
 	function getUsers() {
 		$users = $this->databaseConnection->query("select * from users")->results();
-		
 		print_r($users);
 	}
 

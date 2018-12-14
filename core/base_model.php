@@ -13,10 +13,7 @@ class BaseModel {
     }
 
     public function index() {
-        //return $this->databaseConnection->query("select * from $this->table");
-        $sql = "select * from ". $this->table;
-        echo $sql;
-        return $this->databaseConnection->query("select * from users");
+        return $this->query('select * from ' . $this->table);
     }
 
     protected function setTableColumns() {
@@ -24,7 +21,6 @@ class BaseModel {
         foreach($columns as $column) {
             $columnName = $column->Field;
             $this->columnName[] = $column->Field;
-            //$this->{columnName} = null;
         }
     }
 
@@ -37,6 +33,7 @@ class BaseModel {
             return $this->databaseConnection->insert($this->table, $fields);
         }
         else {
+            ErrorLog::Exception('No fields are defined to insert');
             return false;
         }
     }
@@ -46,6 +43,7 @@ class BaseModel {
             return false;
         }
         else {
+            ErrorLog::Exception('No fields are provided to update');
             return $this->databaseConnection->update($this->table, $id, $fields);
         }
     }
@@ -53,6 +51,7 @@ class BaseModel {
     public function delete($id = '') {
         
         if($id == '' && $this->id == '') {
+            ErrorLog::Exception('No id provided to delete');
             return false;
         }
         $id = ($id == '') ? $this->id : $id; // if no id is passed, already available id will be used
@@ -61,22 +60,6 @@ class BaseModel {
 
     public function query($sql, $bind = []) {
         return $this->databaseConnection->query($sql, $bind);
-    }
-
-    // part of active record pattern to save current instance data
-    public function save() {
-        $fields = [];
-        foreach($this->columnName as $column) {
-            $fields[$column] = $this->$column;
-        }
-
-        // check if we need to insert or update the existing record
-        if(property_exists($this, $id) && $this->id != '') {
-            return $this->update($this->id, $fields);
-        }
-        else {
-            return $this->insert($fields);
-        }
     }
 
     public function getTableName() {

@@ -22,14 +22,6 @@ class BaseController {
     print_r($this->modelName->index());
   }
 
-  public function lastRecord() {    
-    
-  }
-
-  public function firstRecord() {
-    
-  }
-
   private function getModelName() {
     $this->modelName = str_replace('Controller', 'Model' , get_class($this));
   }

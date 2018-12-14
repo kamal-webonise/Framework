@@ -12,6 +12,7 @@ class DatabaseFactory {
             case 'pgsql' :
                 return Pssql::getInstance($db);
             default :
+		ErrorLog::Exception('Provide database server name in database_config.php');
                 die('Provide database server name in database_config.php');
         }
     }

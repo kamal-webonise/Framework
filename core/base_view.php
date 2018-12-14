@@ -14,6 +14,7 @@ class BaseView{
             include(ROOTPATH . '/app/views/layouts/' .$this->layout. '.php');
         }
         else{
+	    ErrorLog::Exception('The View \"'.$viewName.'\" does not exist.');
             die('The View \"'.$viewName.'\" does not exist.');
         }
     }
@@ -42,6 +43,7 @@ class BaseView{
             $this->body = ob_get_clean();
         }
         else{
+            ErrorLog::Exception('Run the start method before render your page');
             die('Run the start method before render your page');
         }
     }

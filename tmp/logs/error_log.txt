@@ -24,3 +24,9 @@ No Such Controller found. 404 - The file not found 12/13/2018 02:31:21 pm
 No Such Controller found. 404 - The file not found 12/13/2018 02:31:26 pm
 No Such Controller found. 404 - The file not found 12/13/2018 02:33:12 pm
 No result found 12/13/2018 02:43:11 pm
+No fields are provided to update 12/14/2018 07:26:05 am
+Cannot execute query 12/14/2018 07:26:05 am
+Cannot update record 12/14/2018 07:26:05 am
+No fields are provided to update 12/14/2018 07:27:14 am
+Cannot execute query 12/14/2018 07:31:09 am
+No such Method Found or 404 error 12/14/2018 07:35:22 am
