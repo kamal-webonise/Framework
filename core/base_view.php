@@ -42,6 +42,7 @@ class BaseView{
             $this->body = ob_get_clean();
         }
         else{
+            ErrorLog::Exception('Run the start method before render your page');
             die('Run the start method before render your page');
         }
     }
