@@ -19,8 +19,7 @@ class LoginController extends BaseController {
 		$userSession=explode(",",$session->getSession());
 		if(!(empty($userSession) || $userSession[0]=="")){
 			$users=$userModel->getUserByEmail($_SESSION['email']);
-			$this->view->postedData($users);
-			$this->view->render('dashboard');
+			header("Location:/Framework/user/dashboard");
 			return;
 		}
 		if(!session_id())
@@ -30,6 +29,7 @@ class LoginController extends BaseController {
 		
 		$_SESSION['email']=$_POST['email'];
 		$users=$userModel->getUserByEmail($_POST['email']);
+		$_SESSION['name']=$users[0]->name;
 		if(count($users)<1){
 			throw new Exception("Email id not found !");
 		}
@@ -45,15 +45,13 @@ class LoginController extends BaseController {
 			if(!$isInserted){
 				throw new Exception("Unable to insert session data !");	
 			}
-			$this->view->postedData($users);
-			$this->view->render('dashboard');
-
+			header("Location:/Framework/user/dashboard");
 		}else{
+			
 			die("Email id or password is incorrect !");
 		}
 	}
 	public function renderLogin(){
-		//header('Location:/Framework/app/views/login.html');
 		$this->view->render("login");
 	}
 	public function showUsers() {
@@ -74,7 +72,6 @@ class LoginController extends BaseController {
 
 		$sessionModel->deleteUserSession($userSession[1]);
 		$session->deleteSession();
-		//header('Location:/Framework/app/views/login.html');
 		$this->view->render("login");
 	}
 }

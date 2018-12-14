@@ -28,7 +28,7 @@ class Router {
 
   private function setParams() {
     if(sizeof($this->pathArray) > 2)
-      $this->params = array_slice($this->pathArray, 3);
+      return $this->params = array_slice($this->pathArray, 3);
   }
 
   private function setController() {

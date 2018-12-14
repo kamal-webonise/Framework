@@ -61,4 +61,11 @@ class UserController extends BaseController {
 			echo "Record Cannot be Inserted";
 		}
 	} 
+
+	function dashboard() {
+		$middleware=new Middleware;
+		if($middleware->secureHandle()){
+			$this->view->render('dashboard');
+		}
+	}
 }

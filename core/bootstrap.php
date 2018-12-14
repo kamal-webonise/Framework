@@ -27,6 +27,9 @@ function __autoload($className) {
     else if(file_exists(ROOTPATH . '/config/' . $className . '.php')) {
         require_once(ROOTPATH . '/config/' . $className . '.php');
     }
+    else if(file_exists(ROOTPATH . '/app/controllers/' . $className . '.php')) {
+        require_once(ROOTPATH . '/app/controllers/' . $className . '.php');
+    }
     else {
         die('Cannot include files' . $className);
     }
