@@ -65,7 +65,6 @@ class BaseModel {
     }
 
     public function getTableName() {
-
         if (!isset($this->table)) {
           $tableArray = preg_split('/(?=[A-Z])/', str_replace("Model","",get_class($this)));
           $tableString = '';
@@ -76,5 +75,4 @@ class BaseModel {
           $this->table = ltrim($tableString, '_');
         }
     }
-
 }

@@ -10,6 +10,5 @@ $db = array(
   'password' => '',
   'database' => 'testframework',
   'dbserver' => 'mysql',
-  'pconnect' => FALSE,
-  'save_queries' => TRUE
+  'pconnect' => FALSE
 );
