@@ -4,8 +4,6 @@ class UserController extends BaseController {
 
 	function __construct()
 	{
-		$this->sessionFactory=SessionFactory::getType();
-		$this->sessionFile=new SessionFile;
 		parent::__construct();
 	}
 
@@ -66,10 +64,9 @@ class UserController extends BaseController {
 
 	public function check()
 	{
-		$userModel= new UserModel;
 		$userSession=explode(",",$this->sessionFile->getSession());
 		if(!(empty($userSession) || $userSession[0]=="")){
-			$users=$userModel->getUserByEmail($_SESSION['email']);
+			$users=$this->modelName->getUserByEmail($_SESSION['email']);
 			header("Location:/Framework/user/dashboard");
 			return;
 		}
@@ -78,12 +75,12 @@ class UserController extends BaseController {
 			session_start();
 		}
 		$_SESSION['email']=$_POST['email'];
-		$users=$userModel->getUserByEmail($_POST['email']);
+		$users=$this->modelName->getUserByEmail($_POST['email']);
 		$_SESSION['name']=$users[0]->name;
 		if(count($users)<1){
 			throw new Exception("Email id not found !");
 		}
-		$userPassword=$userModel->getPasswordByEmail($users[0]->email);
+		$userPassword=$this->modelName->getPasswordByEmail($users[0]->email);
 		if(count($userPassword)<1){
 			throw new Exception("Password not found !");
 		}

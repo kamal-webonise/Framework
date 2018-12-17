@@ -12,4 +12,4 @@ define('PROOT', '/Framework/'); // set this '/' for live server
 
 define('SESSION_DEFAULT_TIMEOUT', 1800);
 
-define('SESSION_TYPE', 'DATABASE');
+define('SESSION_TYPE', 'FILE');
