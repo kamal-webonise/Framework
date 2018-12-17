@@ -2,8 +2,12 @@
 
 class LoginController extends BaseController {
 
+	private $sessionFactory,$sessionFile;		
+
 	function __construct()
 	{
+        $this->sessionFactory=SessionFactory::getType();
+		$this->sessionFile=new SessionFile;
 		parent::__construct();
 	}
 
@@ -14,9 +18,8 @@ class LoginController extends BaseController {
 
 	public function login()
 	{
-		$session=new Session;
 		$userModel= new UserModel;
-		$userSession=explode(",",$session->getSession());
+		$userSession=explode(",",$this->sessionFile->getSession());
 		if(!(empty($userSession) || $userSession[0]=="")){
 			$users=$userModel->getUserByEmail($_SESSION['email']);
 			header("Location:/Framework/user/dashboard");
@@ -38,12 +41,14 @@ class LoginController extends BaseController {
 			throw new Exception("Password not found !");
 		}
 		if($_POST['password']==$userPassword[0]->password) {
-			$session=new Session;
-			$uuid=$session->createSession($users[0]->id);
-			$sessionModel=new SessionModel;
-			$isInserted=$sessionModel->insertSession($uuid,date('Y-m-d H:i:s',time() + (60 * 30)),$users[0]->id);
-			if(!$isInserted){
-				throw new Exception("Unable to insert session data !");	
+			$uuid=$this->sessionFile->createSession(0,0,$users[0]->id);
+
+			if(SESSION_TYPE=="DATABASE"){
+				$isInserted=$this->sessionFactory->createSession($uuid,date('Y-m-d H:i:s',time() + (60 * 30)),$users[0]->id);
+				if(!$isInserted){
+					throw new Exception("Unable to insert session data !");	
+				}
+				
 			}
 			header("Location:/Framework/user/dashboard");
 		}else{
@@ -59,19 +64,19 @@ class LoginController extends BaseController {
 		echo $userId;
 	}
 	public function logout(){
-		$session=new Session;
-		$userSession=explode(",",$session->getSession());
+		$userSession=explode(",",$this->sessionFile->getSession());		
 		if(empty($userSession) || $userSession[0]==""){
 			throw new Exception("Session data not found !");
 		}
-		$sessionModel =new SessionModel;
-		$userDbSession=$sessionModel->sessionByUserIdAndUuId($userSession[1],$userSession[0]);
-		if(count($userDbSession)<1){
-			throw new Exception("DB session data not found !");
-		}
+		if(SESSION_TYPE=="DATABASE"){
 
-		$sessionModel->deleteUserSession($userSession[1]);
-		$session->deleteSession();
+			$userDbSession=$this->sessionFactory->getSession($userSession[1],$userSession[0]);
+			if(count($userDbSession)<1){
+				throw new Exception("DB session data not found !");
+			}
+			$this->sessionFactory->deleteUserSession($userSession[1]);
+		}
+		$this->sessionFile->deleteSession();
 		$this->view->render("login");
 	}
 }

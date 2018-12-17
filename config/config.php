@@ -9,3 +9,7 @@ define('DEFAULT_LAYOUT', 'default'); // If no layout is set use this layout
 define('SITE_TITLE', 'PHP Framework'); // This is used if no site title is available
 
 define('PROOT', '/Framework/'); // set this '/' for live server
+
+define('SESSION_DEFAULT_TIMEOUT', 1800);
+
+define('SESSION_TYPE', 'DATABASE');
