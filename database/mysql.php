@@ -149,4 +149,64 @@ class Mysql implements DatabaseInterface {
     public function error() {
         return $this->error;
     }
+
+        // common method for find and find first methods to read record
+    protected function read($table, $params = []) {
+        $conditionString = '';
+        $bind = [];
+        $order = '';
+        $limit = '';
+        // Conditions
+        if(isset($params['conditions'])) {
+            if(is_array($params['conditions'])) {
+                foreach($params['conditions'] as $condition) {
+                    $conditionString = ' ' . $condition . ' AND';
+                }
+                $conditionString = trim($conditionString);
+                $conditionString = rtrim($conditionString, ' AND');
+            }
+            else {
+                $conditionString = $params['conditions'];
+            }
+            if($conditionString != '') {
+                $conditionString = ' WHERE ' . $conditionString;
+            }
+        }
+        // Bind
+        if(array_key_exists('bind', $params)) {
+            $bind = $params['bind'];
+        }
+        // Order
+        if(array_key_exists('order', $params)) {
+            $order = ' ORDER BY ' . $params['order'];
+        }
+        // Limit
+        if(array_key_exists('limit', $params)) {
+            $limit = ' LIMIT ' . $params['limit'];
+        }
+        $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
+        
+        if($this->query($sql, $bind)) {
+            var_dump($this->query($sql, $bind));            
+            if(!count($this->result)) {
+                return false; 
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public function find($table, $params = []) {
+        if($this->read($table, $params)) {
+            return $this->results();
+        }
+        return false;
+    }
+    
+    public function findFirst($table, $params = []) {
+        if($this->read($table, $params)) {
+            return $this->first();
+        }
+        return false;
+    }
 }
