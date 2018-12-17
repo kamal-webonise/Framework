@@ -34,7 +34,7 @@ class Router {
   private function setController() {
 
     if( $this->pathArray === '/') {
-      echo "Redirect to Home Page \n";
+      header("Location:/Framework/user/signup");
     }
     else {
       $reqController = $this->pathArray[1];

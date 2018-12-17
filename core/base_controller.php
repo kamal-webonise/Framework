@@ -7,6 +7,8 @@ class BaseController {
   public function __construct() {
     $this->getModelName();
     $this->getModelPath();
+    $this->sessionFactory=SessionFactory::getType();
+		$this->sessionFile=new SessionFile;
     if(file_exists($this->modelPath)) {
       $this->modelName = new $this->modelName();
     }

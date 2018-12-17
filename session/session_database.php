@@ -1,12 +1,13 @@
 <?php
-
-class SessionModel extends BaseModel {
-
-    public function __construct() {
-        parent::__construct();
-    }   
+class SessionDatabase extends SessionCore{
     
-    public function insertSession($uuid,$expiresAt,$userID){
+    private $databaseConnection;
+
+    public function __construct(){
+        $this->databaseConnection=DatabaseFactory::getDatabaseInstance();
+    }
+    
+    public function createSession($uuid,$expiresAt,$userID){
         $sessionArray = array(
             "uuid" => $uuid,
             "expires_at" => $expiresAt,
@@ -28,7 +29,7 @@ class SessionModel extends BaseModel {
         $this->databaseConnection->delete('sessions',$id);
     }
 
-    public function sessionByUserIdAndUuId($userID,$uuid){
+    public function getSession($userID,$uuid){
     $sql="SELECT * from sessions where uuid='{$uuid}' and user_id='{$userID}'";
         $result=$this->databaseConnection->query($sql);
         return $result->results();
@@ -40,5 +41,3 @@ class SessionModel extends BaseModel {
         $this->databaseConnection->query($sql,$arr);
     }
 }
-
-?>

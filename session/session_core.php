@@ -1,6 +1,7 @@
-<?php
 
-class SessionCore {
+<?php
+abstract class SessionCore{
+
     public static function exists($name) {
         return (isset($_SESSION[$name])) ? true : false;
     }
@@ -18,4 +19,10 @@ class SessionCore {
             unset($_SESSION[$name]);
         }
     }
+    public abstract function createSession($uuid,$expiresAt,$userID);
+    public abstract function updateSession($id,$uuid,$expiresAt,$userID);
+    public abstract function deleteSession($id);
+    public abstract function getSession($userID,$uuid);
+    public abstract function deleteUserSession($userId);
 }
+?>
