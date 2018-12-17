@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Project root path constant
 define('ROOTPATH', dirname(__FILE__));
