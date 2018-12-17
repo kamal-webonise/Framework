@@ -2,7 +2,7 @@
     $this->start("body");
 ?>
 
-<form action="../login/login" method="POST">
+<form action="../user/check" method="POST">
   <div class="container">
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="email" required>

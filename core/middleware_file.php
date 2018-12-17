@@ -28,6 +28,7 @@ class MiddlewareFile extends MiddlewareCore{
 	public function authenticateUser(){
 		$userSession=explode(",",$this->sessionFactory->getSession());
 		if(empty($userSession) || $userSession[0]==""){
+            echo "Unauthenticated User";
 			throw new Exception("Session data not found !");
         }
         return true;

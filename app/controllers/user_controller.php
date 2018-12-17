@@ -77,7 +77,6 @@ class UserController extends BaseController {
 		{
 			session_start();
 		}
-		
 		$_SESSION['email']=$_POST['email'];
 		$users=$userModel->getUserByEmail($_POST['email']);
 		$_SESSION['name']=$users[0]->name;
