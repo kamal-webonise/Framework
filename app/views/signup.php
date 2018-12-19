@@ -1,10 +1,5 @@
 <?php $this->setSiteTitle("Signup"); ?>
 
-<?php $this->start('head'); ?>
-
-<?php $this->end(); ?>
-
-<?php $this->start('body'); ?>
             <form method="POST" action="register">
                   <table style="border-spacing: 30px; text-align: center;">
                         <tr>
@@ -28,4 +23,3 @@
                         </tr>
                   </table>
             </form>
-<?php $this->end(); ?>

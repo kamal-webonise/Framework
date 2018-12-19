@@ -7,17 +7,6 @@ class UserController extends BaseController {
 		parent::__construct();
 	}
 
-    
-  	public function insertUser() {
-      	$this->view->postedData($postArray);
-      	$this->view->render('user');
-  	}
-
-  	public function getUser() {
-      $this->view->postedData($this->databaseConnection->query('select * from users')->results());
-      $this->view->render('home/about');
-  	}
-
   	function signup() {
 		$this->view->render('signup');
   	}
@@ -35,6 +24,7 @@ class UserController extends BaseController {
 			echo "Unauthorised";
 		}
 	}
+
 	public function deleteAccount() {
 		$userSession = explode(",",$this->sessionFile->getSession());
 		$userId = $userSession[1];
@@ -52,10 +42,9 @@ class UserController extends BaseController {
 				"password" => $_POST['password']
 				];
 		
-		$this->view->postedData($arr);
-		$res=$this->modelName->insert($this->view->getpostedData());
+		$res=$this->modelName->insert($arr);
 		if($res==1){
-			$this->view->render("login");
+			$this->view->render("login", $arr);
 		}
 		else{
 			echo "Record Cannot be Inserted";
@@ -96,8 +85,8 @@ class UserController extends BaseController {
 			}
 			header("Location:/Framework/user/dashboard");
 		}else{
-			
-			die("Email id or password is incorrect !");
+
+			throw new Exception("Email id or password is incorrect !");
 		}
 	} 
 
