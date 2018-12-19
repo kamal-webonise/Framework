@@ -2,29 +2,25 @@
 
 class BaseController {
 
-  public $modelName = '', $view, $modelPath;
+  public $modelName = '', $view;
 
   public function __construct() {
-    $this->getModelName();
-    $this->getModelPath();
+    $this->setModelName();
     $this->sessionFactory=SessionFactory::getType();
 		$this->sessionFile=new SessionFile;
-    if(file_exists($this->modelPath)) {
-      $this->modelName = new $this->modelName();
-    }
+    $this->modelName = new $this->modelName();
     $this->view = new BaseView();
   }
 
-  public function getModelPath() {
-    $name = lcfirst(str_replace( 'Controller', '_model.php',  get_class($this)));
-    $this->modelPath = ROOTPATH . '/app/models/'.$name;
+  public function redirect($path) {
+    header("Location:".$path);
   }
 
   public function index() {
     print_r($this->modelName->index());
   }
   
-  private function getModelName() {
+  private function setModelName() {
     $this->modelName = str_replace('Controller', 'Model' , get_class($this));
   }
 }

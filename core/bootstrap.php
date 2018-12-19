@@ -31,7 +31,7 @@ function __autoload($className) {
         require_once(ROOTPATH . '/app/controllers/' . $className . '.php');
     }
     else {
-        die('Cannot include files' . $className);
+        ErrorLog::Exception('Cannot include files' . $className);
     }
 }
 

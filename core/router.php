@@ -1,14 +1,11 @@
 <?php
 
 class Router {
-  const DEFAULT_CONTROLLER = "IndexController";
-  const DEFAULT_ACTION     = "index";
 
-  private $controller = self::DEFAULT_CONTROLLER;
-  private $action = self::DEFAULT_ACTION;
+  private $controller;
+  private $action;
   private $params = array();
   private $pathArray = array();
-  private $errInstance;
 
   private function parseUri() {
 
@@ -38,21 +35,13 @@ class Router {
     }
     else {
       $reqController = $this->pathArray[1];
-      $reqModel = $this->pathArray[1];
       $controllerPath = ROOTPATH . '/app/controllers/'.$reqController.'_controller.php';
-      $modelPath = ROOTPATH . '/app/models/'.$reqModel.'_model.php';
 
       if (file_exists($controllerPath))
       {
-        include_once $controllerPath;
-        $model = ucfirst($reqModel).'Model';
         $this->controller = ucfirst($reqController).'Controller';
-
         $method = $this->action;
         
-        if (file_exists($modelPath)) {
-          include_once $modelPath;
-        }
         $controllerObj = new $this->controller();
 
         if ($method != '') {
