@@ -33,7 +33,7 @@ class UserController extends BaseController {
 		}
 		$this->modelName->deleteUser($userId);
 		$this->sessionFile->deleteSession();
-		header("Location:/Framework/user/signup");		
+		$this->redirect("/Framework/user/signup");	
 	}
 	
 	function register(){
@@ -56,7 +56,7 @@ class UserController extends BaseController {
 		$userSession=explode(",",$this->sessionFile->getSession());
 		if(!(empty($userSession) || $userSession[0]=="")){
 			$users=$this->modelName->getUserByEmail($_SESSION['email']);
-			header("Location:/Framework/user/dashboard");
+			$this->redirect("/Framework/user/dashboard");
 			return;
 		}
 		if(!session_id())
@@ -83,7 +83,7 @@ class UserController extends BaseController {
 				}
 				
 			}
-			header("Location:/Framework/user/dashboard");
+			$this->redirect("/Framework/user/dashboard");
 		}else{
 
 			throw new Exception("Email id or password is incorrect !");
@@ -104,7 +104,7 @@ class UserController extends BaseController {
 			$this->sessionFactory->deleteUserSession($userSession[1]);
 		}
 		$this->sessionFile->deleteSession();
-		header("Location:/Framework/user/login");
+		$this->redirect("/Framework/user/login");
 	}
 
 	function dashboard() {

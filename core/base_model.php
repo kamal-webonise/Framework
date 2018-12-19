@@ -1,15 +1,12 @@
 <?php
 
 class BaseModel {
-    protected $databaseConnection, $table, $modelName, $columnName = [];
+    protected $databaseConnection, $table, $columnName = [];
     public $id;
 
     public function __construct() {
       $this->databaseConnection = DatabaseFactory::getDatabaseInstance();
       $this->getTableName();
-
-      // gets model name from table name eg:- table_name will become TableName
-      $this->modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->table)));
     }
 
     public function index() {
