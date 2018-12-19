@@ -22,7 +22,7 @@
             if (!isset($_SESSION['user_session'])){
                 throw new Exception("Session Not Found !");
             }else{
-                ini_set('session.gc_maxlifetime', SESSION_DEFAULT_TIMEOUT);             
+                @ini_set('session.gc_maxlifetime', SESSION_DEFAULT_TIMEOUT);             
             }
         }
         public function deleteSession($id=0){

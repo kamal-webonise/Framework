@@ -1,7 +1,3 @@
-<?php
-    $this->start("body");
-?>
-
 <form action="../user/check" method="POST">
   <div class="container">
     <label for="uname"><b>Username</b></label>
@@ -20,7 +16,3 @@
     <button type="button" class="cancelbtn">Cancel</button>
   </div>
 </form>
-
-<?php
-    $this->end();
-?>

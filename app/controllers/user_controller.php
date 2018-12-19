@@ -9,13 +9,8 @@ class UserController extends BaseController {
 
     
   	public function insertUser() {
-      	$this->view->postedData($postArray);
-      	$this->view->render('user');
-  	}
-
-  	public function getUser() {
-      $this->view->postedData($this->databaseConnection->query('select * from users')->results());
-      $this->view->render('home/about');
+      	//$this->view->postedData($postArray);
+      	$this->view->render('user', $postArray);
   	}
 
   	function signup() {
@@ -52,10 +47,10 @@ class UserController extends BaseController {
 				"password" => $_POST['password']
 				];
 		
-		$this->view->postedData($arr);
-		$res=$this->modelName->insert($this->view->getpostedData());
+		//$this->view->postedData($arr);
+		$res=$this->modelName->insert($arr);
 		if($res==1){
-			$this->view->render("login");
+			$this->view->render("login", $arr);
 		}
 		else{
 			echo "Record Cannot be Inserted";
@@ -123,5 +118,9 @@ class UserController extends BaseController {
 		if($middlewareObjType->secureHandle()){
 			$this->view->render('dashboard');
 		}
+	}
+
+	function testPage() {
+		
 	}
 }

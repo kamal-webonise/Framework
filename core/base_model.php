@@ -77,4 +77,12 @@ class BaseModel {
         }
     }
 
+    public function find($dataArray) {
+        $this->databaseConnection->find($this->table, $dataArray);
+    }
+
+    public function findFirst($dataArray) {
+        $this->databaseConnection->findFirst($this->table, $dataArray);
+    }
+
 }
